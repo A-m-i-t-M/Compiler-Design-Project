@@ -1,0 +1,395 @@
+================================================================================
+EQUALITY SATURATION OPTIMIZER - TEST SUITE
+================================================================================
+
+Test 1/48: Identity: x + 0
+Input:    x+0
+Original:  (x + 0) (cost: 3)
+Optimized: x (cost: 1)
+Expected:  Should simplify to: x
+✓ OPTIMIZED - Cost reduced by 2
+--------------------------------------------------------------------------------
+
+Test 2/48: Identity: 0 + x
+Input:    0+x
+Original:  (0 + x) (cost: 3)
+Optimized: x (cost: 1)
+Expected:  Should simplify to: x
+✓ OPTIMIZED - Cost reduced by 2
+--------------------------------------------------------------------------------
+
+Test 3/48: Identity: x * 1
+Input:    x*1
+Original:  (x * 1) (cost: 3)
+Optimized: x (cost: 1)
+Expected:  Should simplify to: x
+✓ OPTIMIZED - Cost reduced by 2
+--------------------------------------------------------------------------------
+
+Test 4/48: Identity: 1 * x
+Input:    1*x
+Original:  (1 * x) (cost: 3)
+Optimized: x (cost: 1)
+Expected:  Should simplify to: x
+✓ OPTIMIZED - Cost reduced by 2
+--------------------------------------------------------------------------------
+
+Test 5/48: Multiple identity: a + 0 + 0
+Input:    a+0+0
+Original:  ((a + 0) + 0) (cost: 5)
+Optimized: a (cost: 1)
+Expected:  Should simplify to: a
+✓ OPTIMIZED - Cost reduced by 4
+--------------------------------------------------------------------------------
+
+Test 6/48: Multiple identity: a * 1 * 1
+Input:    a*1*1
+Original:  ((a * 1) * 1) (cost: 5)
+Optimized: a (cost: 1)
+Expected:  Should simplify to: a
+✓ OPTIMIZED - Cost reduced by 4
+--------------------------------------------------------------------------------
+
+Test 7/48: Annihilation: x * 0
+Input:    x*0
+Original:  (x * 0) (cost: 3)
+Optimized: 0 (cost: 1)
+Expected:  Should simplify to: 0
+✓ OPTIMIZED - Cost reduced by 2
+--------------------------------------------------------------------------------
+
+Test 8/48: Annihilation: 0 * x
+Input:    0*x
+Original:  (0 * x) (cost: 3)
+Optimized: 0 (cost: 1)
+Expected:  Should simplify to: 0
+✓ OPTIMIZED - Cost reduced by 2
+--------------------------------------------------------------------------------
+
+Test 9/48: Mixed: a * 0 + b
+Input:    a*0+b
+Original:  ((a * 0) + b) (cost: 5)
+Optimized: b (cost: 1)
+Expected:  Should simplify to: b
+✓ OPTIMIZED - Cost reduced by 4
+--------------------------------------------------------------------------------
+
+Test 10/48: Chain annihilation: x * 0 * y
+Input:    x*0*y
+Original:  ((x * 0) * y) (cost: 5)
+Optimized: 0 (cost: 1)
+Expected:  Should simplify to: 0
+✓ OPTIMIZED - Cost reduced by 4
+--------------------------------------------------------------------------------
+
+Test 11/48: Constant folding: 2 + 3
+Input:    2+3
+Original:  (2 + 3) (cost: 3)
+Optimized: 5 (cost: 1)
+Expected:  Should simplify to: 5
+✓ OPTIMIZED - Cost reduced by 2
+--------------------------------------------------------------------------------
+
+Test 12/48: Constant folding: 5 * 4
+Input:    5*4
+Original:  (5 * 4) (cost: 3)
+Optimized: 20 (cost: 1)
+Expected:  Should simplify to: 20
+✓ OPTIMIZED - Cost reduced by 2
+--------------------------------------------------------------------------------
+
+Test 13/48: Multiple constants: 1 + 2 + 3
+Input:    1+2+3
+Original:  ((1 + 2) + 3) (cost: 5)
+Optimized: 6 (cost: 1)
+Expected:  Should fold to: 6
+✓ OPTIMIZED - Cost reduced by 4
+--------------------------------------------------------------------------------
+
+Test 14/48: Multiple constants: 2 * 3 * 4
+Input:    2*3*4
+Original:  ((2 * 3) * 4) (cost: 5)
+Optimized: 24 (cost: 1)
+Expected:  Should fold to: 24
+✓ OPTIMIZED - Cost reduced by 4
+--------------------------------------------------------------------------------
+
+Test 15/48: Constant with identity: 10 + 0
+Input:    10+0
+Original:  (10 + 0) (cost: 3)
+Optimized: 10 (cost: 1)
+Expected:  Should simplify to: 10
+✓ OPTIMIZED - Cost reduced by 2
+--------------------------------------------------------------------------------
+
+Test 16/48: Constant with identity: 7 * 1
+Input:    7*1
+Original:  (7 * 1) (cost: 3)
+Optimized: 7 (cost: 1)
+Expected:  Should simplify to: 7
+✓ OPTIMIZED - Cost reduced by 2
+--------------------------------------------------------------------------------
+
+Test 17/48: Distributive: a * (b + c)
+Input:    a*(b+c)
+Original:  (a * (b + c)) (cost: 5)
+Optimized: ((a * b) + (a * c)) (cost: 7)
+Expected:  Should expand to: a*b + a*c
+⟳ TRANSFORMED - Cost unchanged
+--------------------------------------------------------------------------------
+
+Test 18/48: Distributive with constant: 2 * (x + y)
+Input:    2*(x+y)
+Original:  (2 * (x + y)) (cost: 5)
+Optimized: ((2 * x) + (2 * y)) (cost: 7)
+Expected:  Should expand to: 2*x + 2*y
+⟳ TRANSFORMED - Cost unchanged
+--------------------------------------------------------------------------------
+
+Test 19/48: Distributive with constants: x * (3 + 4)
+Input:    x*(3+4)
+Original:  (x * (3 + 4)) (cost: 5)
+Optimized: (x * 7) (cost: 3)
+Expected:  Should simplify to: 7*x or x*7
+✓ OPTIMIZED - Cost reduced by 2
+--------------------------------------------------------------------------------
+
+Test 20/48: Distributive with identity: a * (b + 0)
+Input:    a*(b+0)
+Original:  (a * (b + 0)) (cost: 5)
+Optimized: (a * b) (cost: 3)
+Expected:  Should simplify to: a*b
+✓ OPTIMIZED - Cost reduced by 2
+--------------------------------------------------------------------------------
+
+Test 21/48: Combined: x + 0 * y
+Input:    x+0*y
+Original:  (x + (0 * y)) (cost: 5)
+Optimized: x (cost: 1)
+Expected:  Should simplify to: x
+✓ OPTIMIZED - Cost reduced by 4
+--------------------------------------------------------------------------------
+
+Test 22/48: Combined: a * 1 + b * 0
+Input:    a*1+b*0
+Original:  ((a * 1) + (b * 0)) (cost: 7)
+Optimized: a (cost: 1)
+Expected:  Should simplify to: a
+✓ OPTIMIZED - Cost reduced by 6
+--------------------------------------------------------------------------------
+
+Test 23/48: Combined: 2 * (3 + 4)
+Input:    2*(3+4)
+Original:  (2 * (3 + 4)) (cost: 5)
+Optimized: 14 (cost: 1)
+Expected:  Should fully simplify to: 14
+✓ OPTIMIZED - Cost reduced by 4
+--------------------------------------------------------------------------------
+
+Test 24/48: Combined: x * (y + 0)
+Input:    x*(y+0)
+Original:  (x * (y + 0)) (cost: 5)
+Optimized: (x * y) (cost: 3)
+Expected:  Should simplify to: x*y
+✓ OPTIMIZED - Cost reduced by 2
+--------------------------------------------------------------------------------
+
+Test 25/48: Combined: 0 + a * 1
+Input:    0+a*1
+Original:  (0 + (a * 1)) (cost: 5)
+Optimized: a (cost: 1)
+Expected:  Should simplify to: a
+✓ OPTIMIZED - Cost reduced by 4
+--------------------------------------------------------------------------------
+
+Test 26/48: Combined: 1 * x + 0 * y
+Input:    1*x+0*y
+Original:  ((1 * x) + (0 * y)) (cost: 7)
+Optimized: x (cost: 1)
+Expected:  Should simplify to: x
+✓ OPTIMIZED - Cost reduced by 6
+--------------------------------------------------------------------------------
+
+Test 27/48: No optimization: a + b + c
+Input:    a+b+c
+Original:  ((a + b) + c) (cost: 5)
+Optimized: ((a + b) + c) (cost: 5)
+Expected:  Should remain unchanged
+→ NO CHANGE
+--------------------------------------------------------------------------------
+
+Test 28/48: No optimization: a * b * c
+Input:    a*b*c
+Original:  ((a * b) * c) (cost: 5)
+Optimized: ((a * b) * c) (cost: 5)
+Expected:  Should remain unchanged
+→ NO CHANGE
+--------------------------------------------------------------------------------
+
+Test 29/48: Complex: (a + b) * (c + d)
+Input:    (a+b)*(c+d)
+Original:  ((a + b) * (c + d)) (cost: 7)
+Optimized: (((a + b) * c) + ((a + b) * d)) (cost: 11)
+Expected:  No direct optimization available
+⟳ TRANSFORMED - Cost unchanged
+--------------------------------------------------------------------------------
+
+Test 30/48: Complex: a * (b + c) + d
+Input:    a*(b+c)+d
+Original:  ((a * (b + c)) + d) (cost: 7)
+Optimized: (((a * b) + (a * c)) + d) (cost: 9)
+Expected:  Distributive applies: a*b + a*c + d
+⟳ TRANSFORMED - Cost unchanged
+--------------------------------------------------------------------------------
+
+Test 31/48: Complex: 2 * x + 3 * y
+Input:    2*x+3*y
+Original:  ((2 * x) + (3 * y)) (cost: 7)
+Optimized: ((2 * x) + (3 * y)) (cost: 7)
+Expected:  Should remain unchanged
+→ NO CHANGE
+--------------------------------------------------------------------------------
+
+Test 32/48: Nested: a * (b * (c + d))
+Input:    a*(b*(c+d))
+Original:  (a * (b * (c + d))) (cost: 7)
+Optimized: ((a * (b * c)) + (a * (b * d))) (cost: 11)
+Expected:  Distributive may apply multiple times
+⟳ TRANSFORMED - Cost unchanged
+--------------------------------------------------------------------------------
+
+Test 33/48: Nested identities: (x + 0) * (y + 0)
+Input:    (x+0)*(y+0)
+Original:  ((x + 0) * (y + 0)) (cost: 7)
+Optimized: (x * y) (cost: 3)
+Expected:  Should simplify to: x*y
+✓ OPTIMIZED - Cost reduced by 4
+--------------------------------------------------------------------------------
+
+Test 34/48: Triple nested identity
+Input:    ((a+0)*1)+0
+Original:  (((a + 0) * 1) + 0) (cost: 7)
+Optimized: a (cost: 1)
+Expected:  Should simplify to: a
+✓ OPTIMIZED - Cost reduced by 6
+--------------------------------------------------------------------------------
+
+Test 35/48: Single constant: 0
+Input:    0
+Original:  0 (cost: 1)
+Optimized: 0 (cost: 1)
+Expected:  Should remain: 0
+→ NO CHANGE
+--------------------------------------------------------------------------------
+
+Test 36/48: Single variable: x
+Input:    x
+Original:  x (cost: 1)
+Optimized: x (cost: 1)
+Expected:  Should remain: x
+→ NO CHANGE
+--------------------------------------------------------------------------------
+
+Test 37/48: Single constant: 42
+Input:    42
+Original:  42 (cost: 1)
+Optimized: 42 (cost: 1)
+Expected:  Should remain: 42
+→ NO CHANGE
+--------------------------------------------------------------------------------
+
+Test 38/48: Constant identities: 0 + 0
+Input:    0+0
+Original:  (0 + 0) (cost: 3)
+Optimized: 0 (cost: 1)
+Expected:  Should simplify to: 0
+✓ OPTIMIZED - Cost reduced by 2
+--------------------------------------------------------------------------------
+
+Test 39/48: Constant annihilation: 0 * 0
+Input:    0*0
+Original:  (0 * 0) (cost: 3)
+Optimized: 0 (cost: 1)
+Expected:  Should simplify to: 0
+✓ OPTIMIZED - Cost reduced by 2
+--------------------------------------------------------------------------------
+
+Test 40/48: Constants: 1 + 1
+Input:    1+1
+Original:  (1 + 1) (cost: 3)
+Optimized: 2 (cost: 1)
+Expected:  Should fold to: 2
+✓ OPTIMIZED - Cost reduced by 2
+--------------------------------------------------------------------------------
+
+Test 41/48: Long chain addition
+Input:    a+b+c+d+e
+Original:  ((((a + b) + c) + d) + e) (cost: 9)
+Optimized: ((((a + b) + c) + d) + e) (cost: 9)
+Expected:  Tests parser and optimizer performance
+→ NO CHANGE
+--------------------------------------------------------------------------------
+
+Test 42/48: Long chain multiplication
+Input:    a*b*c*d*e
+Original:  ((((a * b) * c) * d) * e) (cost: 9)
+Optimized: ((((a * b) * c) * d) * e) (cost: 9)
+Expected:  Tests parser and optimizer performance
+→ NO CHANGE
+--------------------------------------------------------------------------------
+
+Test 43/48: Long constant chain
+Input:    1*2*3*4*5
+Original:  ((((1 * 2) * 3) * 4) * 5) (cost: 9)
+Optimized: 120 (cost: 1)
+Expected:  Should fold to: 120
+✓ OPTIMIZED - Cost reduced by 8
+--------------------------------------------------------------------------------
+
+Test 44/48: Multiple identities
+Input:    a+0+0+0+0
+Original:  ((((a + 0) + 0) + 0) + 0) (cost: 9)
+Optimized: a (cost: 1)
+Expected:  Should simplify to: a
+✓ OPTIMIZED - Cost reduced by 8
+--------------------------------------------------------------------------------
+
+Test 45/48: Distributive with multiple terms
+Input:    x*(a+b+c)
+Original:  (x * ((a + b) + c)) (cost: 7)
+Optimized: (((x * a) + (x * b)) + (x * c)) (cost: 11)
+Expected:  Limited by current implementation
+⟳ TRANSFORMED - Cost unchanged
+--------------------------------------------------------------------------------
+
+Test 46/48: Realistic: 2*x + 0*y + 3*z
+Input:    2*x+0*y+3*z
+Original:  (((2 * x) + (0 * y)) + (3 * z)) (cost: 11)
+Optimized: ((2 * x) + (3 * z)) (cost: 7)
+Expected:  Should simplify to: 2*x + 3*z
+✓ OPTIMIZED - Cost reduced by 4
+--------------------------------------------------------------------------------
+
+Test 47/48: Realistic: a * 1 * b * 1 * c
+Input:    a*1*b*1*c
+Original:  ((((a * 1) * b) * 1) * c) (cost: 9)
+Optimized: ((a * b) * c) (cost: 5)
+Expected:  Should simplify to: a*b*c
+✓ OPTIMIZED - Cost reduced by 4
+--------------------------------------------------------------------------------
+
+Test 48/48: Realistic: 100 * 0 + x
+Input:    100*0+x
+Original:  ((100 * 0) + x) (cost: 5)
+Optimized: x (cost: 1)
+Expected:  Should simplify to: x
+✓ OPTIMIZED - Cost reduced by 4
+--------------------------------------------------------------------------------
+
+================================================================================
+SUMMARY
+================================================================================
+Total tests: 48
+Expressions with cost reduction: 34
+Optimization rate: 70.8%
+
